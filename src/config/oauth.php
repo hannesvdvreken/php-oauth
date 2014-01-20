@@ -15,12 +15,17 @@ return array(
 
         /*
         |--------------------------------------------------------------------------
-        | Twitter
+        | CampaignMonitor
         |--------------------------------------------------------------------------
+        |
+        | For all possible scopes, look here: 
+        | http://www.campaignmonitor.com/api/getting-started/#authenticating_with_oauth
+        |
         */
-        'twitter' => array(
+        'campaign_monitor' => array(
             'client_id'     => '',
             'client_secret' => '',
+            'scopes' => array(),
         ),
 
         /*
@@ -39,6 +44,16 @@ return array(
 
         /*
         |--------------------------------------------------------------------------
+        | Foursquare
+        |--------------------------------------------------------------------------
+        */
+        'foursquare' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+        ),
+
+        /*
+        |--------------------------------------------------------------------------
         | Github
         |--------------------------------------------------------------------------
         |
@@ -48,18 +63,32 @@ return array(
         'github' => array(
             'client_id'     => '',
             'client_secret' => '',
+            'scopes' => array(),
         ),
 
         /*
         |--------------------------------------------------------------------------
-        | CampaignMonitor
+        | Google
         |--------------------------------------------------------------------------
         |
-        | For all possible scopes, look here: 
-        | http://www.campaignmonitor.com/api/getting-started/#authenticating_with_oauth
+        | For all possible scopes, look here: https://developers.google.com/oauthplayground/
         |
         */
-        'campaign_monitor' => array(
+        'google' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+            'scopes' => array(),
+        ),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Instagram
+        |--------------------------------------------------------------------------
+        |
+        | For all possible scopes, look here: http://instagram.com/developer/authentication/#scope
+        |
+        */
+        'instagram' => array(
             'client_id'     => '',
             'client_secret' => '',
             'scopes' => array(),
@@ -71,6 +100,16 @@ return array(
         |--------------------------------------------------------------------------
         */
         'mailchimp' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+        ),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Twitter
+        |--------------------------------------------------------------------------
+        */
+        'twitter' => array(
             'client_id'     => '',
             'client_secret' => '',
         ),
