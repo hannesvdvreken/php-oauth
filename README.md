@@ -76,17 +76,17 @@ $status = $twitter->post('statuses/update', null, $post)->send()->json();
 ```
 
 The internal Guzzle Client will be called with the right token in the header or GET parameter.
-All you need to do is load it with the correct credentials or tokens from your persistance layer.
+All you need to do is load the service class with the correct credentials or tokens from your persistance layer or session.
 
-## Laravel4
-If you're using Laravel 4, feel free to register the contained Service Provider (`OAuth\Support\ServiceProvider`).
-It registers the `OAuth` class alias to use the following syntax to get a configured service class:
+## Laravel 4
+If you're using Laravel 4, feel free to register the contained service provider (`OAuth\Support\ServiceProvider`).
+It registers the `OAuth` class alias for the facade to use the following syntax to get a fully configured service class:
 
 ```php
 $twitter = OAuth::consumer('twitter');
 ```
 
-To publish a config file in `app/config/packages` just use the artisan command:
+To create an empty config file in `app/config/packages` just use the artisan command:
 
 ```bash
 php artisan config:publish hannesvdvreken/php-oauth
