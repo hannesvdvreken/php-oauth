@@ -44,6 +44,15 @@ $service
     ->setToken($token);
 ```
 
+The service class also has the following getters:
+
+```php
+$redirectUri = $service->getRedirectUri();
+$credentials = $service->getCredentials();
+$scopes      = $service->getScopes();
+$token       = $service->getToken();
+```
+
 Even the Guzzle Client can be interchanged after the object creation.
 
 ```php
@@ -84,9 +93,69 @@ php artisan config:publish hannesvdvreken/php-oauth
 ```
 
 ## OAuth 1.0a
-For the OAuth1.0a functionality we use the Guzzle [OAuth Plugin](docs.guzzlephp.org/en/latest/plugins/oauth-plugin.html).
+
+For the OAuth1.0a functionality we internally use the Guzzle [OAuth Plugin](docs.guzzlephp.org/en/latest/plugins/oauth-plugin.html). An example:
+
+```php
+$client = new Guzzle\Http\Client;
+$twitter = new OAuth\Services\Twitter($client, $redirectUri, $credentials);
+
+// Request token for redirecting the user (store it in session afterwards).
+$token = $twitter->requestToken();
+
+// Get the url to which we need to redirect the user.
+$url = $twitter->authorizationUrl();
+
+// Redirect the user.
+header('Location: '. $url); exit;
+```
+
+Or in short, the `authorizationUrl` will call the `requestToken` method, if you haven't done so already:
+
+```php
+// Get the url to which we need to redirect the user.
+$url = $twitter->authorizationUrl();
+
+// Get the requestToken that has been requested.
+$token = $twitter->getToken();
+// And store it.
+
+// And redirect the user.
+header('Location: '. $url); exit;
+```
+
+In the callback controller...
+
+```php
+// Give the stored token back to the service class.
+$twitter->setToken($token);
+
+// Exchange the get parameters for an access token.
+$token = $twitter->accessToken($oauthToken, $oauthVerifier);
+
+// Do a get request, just like you would do with a Guzzle Client.
+$profile = $twitter->get('account/verify_credentials.json')->send()->json();
+```
 
 ## OAuth 2
+
+The OAuth2 flow is easier.
+
+```php
+$fb = new OAuth\Services\Facebook($client);
+
+$url = $fb->authorizationUrl();
+
+header('Location: '. $url);
+```
+
+In the callback controller...
+
+```php
+$fb->accessToken($code);
+
+$profile = $fb->get('me')->send()->json();
+```
 
 ## Supported services
 - CampaignMonitor
