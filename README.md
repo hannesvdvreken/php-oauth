@@ -6,7 +6,7 @@ Let's dive right in.
 
 ### Setup
 
-One only needs a Guzzle client to get started.
+One only needs a Guzzle Client to get started.
 
 ```php
 $client = new Guzzle\Http\Client;
@@ -35,14 +35,15 @@ $service = new OAuth\Services\Github($client, $redirectUri, $credentials, $scope
 An alternative way is the following:
 
 ```php
-$service = new OAuth\Services\Github($client)
+$service = new OAuth\Services\Github($client);
+$service
     ->setRedirectUri($redirectUri)
     ->setCredentials($credentials)
     ->setScopes($scopes)
     ->setToken($token);
 ```
 
-Even the Guzzle Client can be changed after the object creation.
+Even the Guzzle Client can be interchanged after the object creation.
 
 ```php
 $service->setClient($client);
@@ -64,7 +65,7 @@ $post = array('status' => 'Tweeted with @hannesvdvreken/php-oauth');
 $status = $twitter->post('statuses/update', null, $post)->send()->json();
 ```
 
-The internal Guzzle client will be called with the right token in the header or GET parameter.
+The internal Guzzle Client will be called with the right token in the header or GET parameter.
 All you need to do is load it with the correct credentials or tokens from your persistance layer.
 
 ## Laravel4
