@@ -1,0 +1,28 @@
+{
+    "name": "hannesvdvreken/php-oauth",
+    "description": "PHP OAuth services",
+    "authors": [
+        {
+            "name": "Hannes Van De Vreken",
+            "email": "vandevreken.hannes@gmail.com"
+        }
+    ],
+    "keywords": ["OAuth1.0a", "OAuth2", "Facebook", "Twitter", "Google", "Github"],
+    "license": "MIT",
+    "type": "library",
+    
+    "require": {
+        "php": ">=5.3.0",
+        "guzzle/guzzle": "3.8.*"
+    },
+    "require-dev": {
+        "illuminate/support": "4.1.*",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "OAuth\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
