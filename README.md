@@ -1,4 +1,5 @@
 # OAuth service classes with Guzzle
+[![Build Status](https://travis-ci.org/hannesvdvreken/php-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/php-oauth)
 
 ## Usage
 
