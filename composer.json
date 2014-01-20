@@ -10,7 +10,6 @@
     "keywords": ["OAuth1.0a", "OAuth2", "Facebook", "Twitter", "Google", "Github"],
     "license": "MIT",
     "type": "library",
-    
     "require": {
         "php": ">=5.3.0",
         "guzzle/guzzle": "3.8.*"
