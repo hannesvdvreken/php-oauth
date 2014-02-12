@@ -159,6 +159,7 @@ $profile = $fb->get('me')->send()->json();
 
 ## Supported services
 - CampaignMonitor
+- Dropbox
 - Facebook
 - Foursquare
 - Github

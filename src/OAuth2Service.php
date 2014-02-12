@@ -20,6 +20,13 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     protected $queryParam = null;
 
     /**
+     * Should be web_server, but some services don't accept the type parameter.
+     *
+     * @var string | null
+     */
+    protected $type = 'web_server';
+
+    /**
      * Request the service an access token.
      *
      * @param  string $code
@@ -60,8 +67,12 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
             'client_id'     => $this->credentials['client_id'],
             'redirect_uri'  => $this->redirectUri,
             'response_type' => 'code',
-            'type'          => 'web_server',
         );
+
+        // Add the default type parameter.
+        if ($this->type) {
+            $queryParams['type'] = $this->type;
+        }
 
         // Add optional scopes parameter.
         if ( ! empty($this->scopes)) {
