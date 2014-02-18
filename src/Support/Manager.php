@@ -2,6 +2,7 @@
 namespace OAuth\Support;
 
 use Guzzle\Http\Client;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
@@ -36,7 +37,7 @@ class Manager
         );
 
         // Create consumer class.
-        $consumer = new $class(new Client);
+        $consumer = new $class(App::make('Guzzle\Http\Client'));
 
         // Configure the consumer and return it.
         return $consumer
