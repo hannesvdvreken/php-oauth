@@ -19,7 +19,7 @@ class CampaignMonitor extends OAuth2Service
     /**
      * @var string
      */
-    protected $base = 'https://api.createsend.com/api/v3/';
+    protected $base = 'https://api.createsend.com/api/v3.1/';
 
     /**
      * @var string
@@ -43,10 +43,10 @@ class CampaignMonitor extends OAuth2Service
     {
         $token = json_decode($response, true);
 
-        $token['expires'] = new DateTime('now + '. $token['expires_in'] .' seconds');
-
-        unset($token['expires_in']);
-
-        return $token;
+        return array(
+            'access_token' => $token['access_token'],
+            'refresh_token' => $token['refresh_token'],
+            'expires' => new DateTime('now + '. $token['expires_in'] .' seconds'),
+        );
     }
 }

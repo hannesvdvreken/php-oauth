@@ -15,14 +15,14 @@ return array(
 
         /*
         |--------------------------------------------------------------------------
-        | CampaignMonitor
+        | Campaignmonitor
         |--------------------------------------------------------------------------
         |
         | For all possible scopes, look here: 
         | http://www.campaignmonitor.com/api/getting-started/#authenticating_with_oauth
         |
         */
-        'campaign_monitor' => array(
+        'campaignmonitor' => array(
             'client_id'     => '',
             'client_secret' => '',
             'scopes' => array(),
@@ -100,6 +100,20 @@ return array(
         |
         */
         'instagram' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+            'scopes' => array(),
+        ),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Linkedin
+        |--------------------------------------------------------------------------
+        |
+        | For all possible scopes, look here: https://developer.linkedin.com/documents/authentication#granting
+        |
+        */
+        'linkedin' => array(
             'client_id'     => '',
             'client_secret' => '',
             'scopes' => array(),

@@ -16,10 +16,10 @@ class Manager
      * @param  array $scope
      * @return OAuth\ServiceInterface
      */
-    public function consumer($service, $redirectUri = null, $scope = null)
+    public function consumer($service, $redirectUri = null, $scopes = null)
     {
         // use scope from config if not provided
-        if (is_null($scope))
+        if (is_null($scopes))
         {
             $scopes = Config::get('php-oauth::oauth.consumers.'. $service .'.scopes', array());
         }
