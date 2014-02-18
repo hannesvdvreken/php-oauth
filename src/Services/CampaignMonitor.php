@@ -4,7 +4,7 @@ namespace OAuth\Services;
 use OAuth\OAuth2Service;
 use DateTime;
 
-class CampaignMonitor extends OAuth2Service
+class Campaignmonitor extends OAuth2Service
 {
     /**
      * @var string

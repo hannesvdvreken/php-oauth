@@ -1,8 +1,8 @@
 <?php
 
-use OAuth\Services\CampaignMonitor;
+use OAuth\Services\Linkedin;
 
-class CampaignMonitorTest extends PHPUnit_Framework_TestCase
+class LinkedinTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the parse access token method
@@ -12,17 +12,15 @@ class CampaignMonitorTest extends PHPUnit_Framework_TestCase
         // Arrange
         $token = array(
             'access_token' => $accessToken = 'access-token',
-            'refresh_token' => $refreshToken = 'refresh-token',
             'expires_in'   => 3600,
         );
         $expected = array(
             'access_token' => $accessToken,
-            'refresh_token' => $refreshToken,
             'expires' => new DateTime('now + '. $token['expires_in'] .' seconds'),
         );
 
         // Act
-        $cm = new CampaignMonitor($this->mockGuzzle());
+        $cm = new Linkedin($this->mockGuzzle());
         $result = $cm->parseAccessToken(json_encode($token));
 
         // Assert
@@ -36,7 +34,7 @@ class CampaignMonitorTest extends PHPUnit_Framework_TestCase
     {
         $client = Mockery::mock('Guzzle\Http\Client');
         $client->shouldReceive('setBaseUrl')->once()
-            ->with('https://api.createsend.com/api/v3.1/')->andReturn(Mockery::self());
+            ->with('https://api.linkedin.com/v1/')->andReturn(Mockery::self());
 
         return $client;
     }
