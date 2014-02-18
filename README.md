@@ -1,5 +1,5 @@
 # OAuth service classes with Guzzle
-[![Build Status](https://travis-ci.org/hannesvdvreken/php-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/php-oauth)
+[![Build Status](https://travis-ci.org/hannesvdvreken/php-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/php-oauth) [![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/php-oauth/v/stable.png)](https://packagist.org/packages/hannesvdvreken/php-oauth) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/php-oauth/downloads.png)](https://packagist.org/packages/hannesvdvreken/php-oauth)
 
 ## Usage
 
