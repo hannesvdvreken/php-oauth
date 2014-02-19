@@ -1,8 +1,8 @@
 <?php
 
-use OAuth\Services\CampaignMonitor;
+use OAuth\Services\Campaignmonitor;
 
-class CampaignMonitorTest extends PHPUnit_Framework_TestCase
+class CampaignmonitorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the parse access token method
@@ -22,7 +22,7 @@ class CampaignMonitorTest extends PHPUnit_Framework_TestCase
         );
 
         // Act
-        $cm = new CampaignMonitor($this->mockGuzzle());
+        $cm = new Campaignmonitor($this->mockGuzzle());
         $result = $cm->parseAccessToken(json_encode($token));
 
         // Assert
