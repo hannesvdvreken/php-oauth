@@ -28,7 +28,7 @@ class Manager
         $redirectUri = $redirectUri ?: URL::current();
 
         // Generate class name.
-        $class = '\OAuth\Services\\'. studly_case($service);
+        $class = '\OAuth\Services\\'. ucfirst($service);
 
         // Get the credentials.
         $credentials = array_only(
