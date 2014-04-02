@@ -45,7 +45,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
 
         // Make the request.
         try {
-            $response = $this->client->post($this->endpointAccessToken, null, $body)->send(null)->getBody(true);
+            $response = $this->client->post($this->endpointAccessToken, null, $body)->send()->getBody(true);
         } catch (ClientErrorResponseException $e) {
             return $this->token = array();
         }
