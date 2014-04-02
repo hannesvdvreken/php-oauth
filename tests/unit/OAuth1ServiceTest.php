@@ -1,18 +1,9 @@
 <?php
 
-require_once(__DIR__ .'/OAuthServiceTest.php');
 use OAuth\OAuth1Service;
 
-class OAuth1ServiceTest extends OAuthServiceTest
+class OAuth1ServiceTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Teardown function
-     */
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
     /**
      * Testing the request token request
      */
@@ -23,22 +14,17 @@ class OAuth1ServiceTest extends OAuthServiceTest
             'client_id'     => 'client-id',
             'client_secret' => 'client-secret',
         );
-        $requestTokenEndpoint = '';
-        $body = 'oauth_token=oauth-token&oauth_token_secret=oauth-token-secret';
-        parse_str($body, $expected);
-        $me = $this;
+
+        $response = array(
+            'oauth_token' => 'oauth-token',
+            'oauth_token_secret' => 'oauth-token-secret',
+        );
 
         // Mock guzzle client
-        $client = $this->mockGuzzle();
-        $client->shouldReceive('addSubscriber')->once()->with(Mockery::on(function($plugin) use ($me)
-        {
-            $me->assertInstanceOf('Guzzle\Plugin\Oauth\OauthPlugin', $plugin);
-            return true;
-        }))->andReturn(Mockery::self());
-        $client->shouldReceive('post')->once()->with($requestTokenEndpoint, null, null)->andReturn(Mockery::self());
-
-        // Mock response
-        $client->shouldReceive('send')->once()->with()->andReturn($this->mockGuzzleResponse($body));
+        $client = new Guzzle\Http\Client;
+        $mock = new Guzzle\Plugin\Mock\MockPlugin;
+        $mock->addResponse(new Guzzle\Http\Message\Response(200, null, http_build_query($response)));
+        $client->addSubscriber($mock);
 
         // Act
         $service = new OAuth1Service($client);
@@ -46,7 +32,7 @@ class OAuth1ServiceTest extends OAuthServiceTest
         $token = $service->requestToken();
         
         // Assert
-        $this->assertEquals($expected, $token);
+        $this->assertEquals($response, $token);
     }
 
     /**
@@ -61,7 +47,7 @@ class OAuth1ServiceTest extends OAuthServiceTest
         );
 
         // Act
-        $service = new OAuth1Service($this->mockGuzzle());
+        $service = new OAuth1Service(new Guzzle\Http\Client);
         $service->setToken($token);
         $returned = $service->requestToken();
 
@@ -75,20 +61,21 @@ class OAuth1ServiceTest extends OAuthServiceTest
     public function test_authorization_url()
     {
         // Arrange
-        $scopes = array('scope-1', 'scope-2');
         $token = array(
             'oauth_token'        => $oauth_token = 'oauth-token',
             'oauth_token_secret' => 'oauth-token-secret',
         );
-        $options = array('state' => 'csrf-state');
+        $state = 'csrf-state';
+        $scope = implode(' ', $scopes = array('scope-1', 'scope-2'));
 
-        $expected = '?' . http_build_query(array_merge($options, compact('oauth_token'), array('scope' => implode(' ', $scopes))));
+        // Combine
+        $expected = '?' . http_build_query(compact('state', 'oauth_token', 'scope'));
 
         // Act
-        $service = new OAuth1Service($this->mockGuzzle());
+        $service = new OAuth1Service(new Guzzle\Http\Client);
         $service->setScopes($scopes);
         $service->setToken($token);
-        $url = $service->authorizationUrl($options);
+        $url = $service->authorizationUrl(compact('state'));
 
         // Assert
         $this->assertEquals($expected, $url);
@@ -110,32 +97,20 @@ class OAuth1ServiceTest extends OAuthServiceTest
             'client_id'     => 'client-id',
             'client_secret' => 'client-secret',
         );
-        $accessTokenEndpoint = '';
-        $post = array('oauth_verifier' => $oauthVerifier);
-
-        $body = 'access_token=access-token&key=value';
-        parse_str($body, $expected);
-        $me = $this;
 
         // Mock guzzle client
-        $client = $this->mockGuzzle();
-        $client->shouldReceive('addSubscriber')->once()->with(Mockery::on(function($plugin) use ($me)
-        {
-            $me->assertInstanceOf('Guzzle\Plugin\Oauth\OauthPlugin', $plugin);
-            return true;
-        }))->andReturn(Mockery::self());
-        $client->shouldReceive('post')->once()->with($accessTokenEndpoint, null, $post)->andReturn(Mockery::self());
-
-        // Mock response
-        $client->shouldReceive('send')->once()->with()->andReturn($this->mockGuzzleResponse($body));
+        $client = new Guzzle\Http\Client;
+        $mock = new Guzzle\Plugin\Mock\MockPlugin;
+        $mock->addResponse(new Guzzle\Http\Message\Response(200, null, http_build_query($token)));
+        $client->addSubscriber($mock);
 
         // Act
         $service = new OAuth1Service($client);
         $service->setCredentials($credentials);
         $service->setToken($token);
-        $token = $service->accessToken($oauthToken, $oauthVerifier);
+        $result = $service->accessToken($oauthToken, $oauthVerifier);
         
         // Assert
-        $this->assertEquals($expected, $token);
+        $this->assertEquals($token, $result);
     }
 }

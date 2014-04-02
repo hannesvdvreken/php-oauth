@@ -1,9 +1,8 @@
 <?php
 
-require_once(__DIR__ .'/OAuthServiceTest.php');
 use OAuth\OAuth2Service;
 
-class OAuth2ServiceTest extends OAuthServiceTest
+class OAuth2ServiceTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the authorization url
@@ -32,7 +31,7 @@ class OAuth2ServiceTest extends OAuthServiceTest
         ));
 
         // Act
-        $client = $this->mockGuzzle();
+        $client = new Guzzle\Http\Client;
         $service = new OAuth2Service($client, $redirectUri, $credentials, $scopes);
         $url = $service->authorizationUrl($options);
 
@@ -63,12 +62,12 @@ class OAuth2ServiceTest extends OAuthServiceTest
             'redirect_uri'  => $redirectUri,
             'grant_type'    => 'authorization_code',
         );
-        $body = json_encode($expected);
 
         // Act
-        $client = $this->mockGuzzle();
-        $client->shouldReceive('post')->once()->with($accessTokenEndpoint, null, $post)->andReturn(Mockery::self());
-        $client->shouldReceive('send')->once()->with(null)->andReturn($this->mockGuzzleResponse($body));
+        $client = new Guzzle\Http\Client;
+        $mock = new Guzzle\Plugin\Mock\MockPlugin;
+        $mock->addResponse(new Guzzle\Http\Message\Response(200, null, json_encode($expected)));
+        $client->addSubscriber($mock);
         $service = new OAuth2Service($client, $redirectUri, $credentials);
         $accessToken = $service->accessToken($code);
 

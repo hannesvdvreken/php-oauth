@@ -29,7 +29,8 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
             'consumer_secret' => $this->credentials['client_secret'],
         ));
 
-        $response = $this->client->addSubscriber($plugin)->post($this->endpointRequestToken)->send(null)->getBody(true);
+        $request = $this->client->addSubscriber($plugin)->post($this->endpointRequestToken);
+        $response = $request->send()->getBody(true);
 
         return $this->token = $this->parseRequestToken($response);
     }
@@ -65,7 +66,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         $postData = array('oauth_verifier' => $oauthVerifier);
 
         $request = $this->client->addSubscriber($plugin)->post($this->endpointAccessToken, null, $postData);
-        $response = $request->send(null)->getBody(true);
+        $response = $request->send()->getBody(true);
 
         $this->token = array_only(
             $data = $this->parseAccessToken($response),
