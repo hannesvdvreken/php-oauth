@@ -61,8 +61,13 @@ class Service implements ServiceInterface
      * @param  array  $scopes
      * @param  array  $token
      */
-    public function __construct(Client $client, $redirectUri = '', array $credentials = array(), array $scopes = array(), array $token = array())
-    {
+    public function __construct(
+        Client $client,
+        $redirectUri = '',
+        array $credentials = array(),
+        array $scopes = array(),
+        array $token = array()
+    ) {
         $this->client      = $client->setBaseUrl($this->base);
         $this->redirectUri = $redirectUri;
         $this->credentials = $credentials;
@@ -212,8 +217,7 @@ class Service implements ServiceInterface
      */
     public function __call($method, $parameters)
     {
-        if ( ! in_array($method, array('get', 'post', 'put', 'patch', 'delete', 'head'))) 
-        {
+        if (! in_array($method, array('get', 'post', 'put', 'patch', 'delete', 'head'))) {
             throw new BadMethodCallException('Method ['. $method .'] does not exist.');
         }
 

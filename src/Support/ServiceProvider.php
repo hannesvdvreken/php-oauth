@@ -23,8 +23,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app['config']->package('hannesvdvreken/php-oauth', __DIR__ .'/../config');
 
         // bind object for OAuth Facade
-        $this->app->bind('oauth', function($app)
-        {
+        $this->app->bind('oauth', function ($app) {
             return $app->make('\OAuth\Support\Manager');
         });
 

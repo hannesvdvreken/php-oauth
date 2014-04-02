@@ -45,7 +45,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
 
         // Make the request.
         try {
-           $response = $this->client->post($this->endpointAccessToken, null, $body)->send(null)->getBody(true);
+            $response = $this->client->post($this->endpointAccessToken, null, $body)->send(null)->getBody(true);
         } catch (ClientErrorResponseException $e) {
             return $this->token = array();
         }
@@ -75,7 +75,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
         }
 
         // Add optional scopes parameter.
-        if ( ! empty($this->scopes)) {
+        if (! empty($this->scopes)) {
             $queryParams['scope'] = implode($this->scopeDelimiter, $this->scopes);
         }
 
@@ -105,7 +105,8 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     protected function prepare()
     {
         if ($this->header) {
-            return $this->client->setDefaultOption('headers', array('Authorization' => $this->header .' '. $this->token['access_token']));
+            $authorization = $this->header .' '. $this->token['access_token'];
+            return $this->client->setDefaultOption('headers', array('Authorization' => $authorization));
         } elseif ($this->queryParam) {
             return $this->client->setDefaultOption('query', array($this->queryParam => $this->token['access_token']));
         }

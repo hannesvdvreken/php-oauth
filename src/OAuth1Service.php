@@ -20,14 +20,16 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     public function requestToken()
     {
         // Don't do this request twice. Let the user choose to call this before autorizeUrl
-        if (isset($this->token['oauth_token_secret'])) return $this->token;
+        if (isset($this->token['oauth_token_secret'])) {
+            return $this->token;
+        }
 
         $plugin = new OauthPlugin(array(
             'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
         ));
 
-        $response = $this->client->addSubscriber($plugin)->post($this->endpointRequestToken, null, null)->send(null)->getBody(true);
+        $response = $this->client->addSubscriber($plugin)->post($this->endpointRequestToken)->send(null)->getBody(true);
 
         return $this->token = $this->parseRequestToken($response);
     }
@@ -62,9 +64,13 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
 
         $postData = array('oauth_verifier' => $oauthVerifier);
 
-        $response = $this->client->addSubscriber($plugin)->post($this->endpointAccessToken, null, $postData)->send(null)->getBody(true);
+        $request = $this->client->addSubscriber($plugin)->post($this->endpointAccessToken, null, $postData);
+        $response = $request->send(null)->getBody(true);
 
-        $this->token = array_only($data = $this->parseAccessToken($response), array('oauth_token', 'oauth_token_secret'));
+        $this->token = array_only(
+            $data = $this->parseAccessToken($response),
+            array('oauth_token', 'oauth_token_secret')
+        );
 
         return $data;
     }
@@ -96,8 +102,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         $queryParams = compact('oauth_token');
 
         // Add optional scopes parameter.
-        if ( ! empty($this->scopes))
-        {
+        if (! empty($this->scopes)) {
             $queryParams['scope'] = implode($this->scopeDelimiter, $this->scopes);
         }
 

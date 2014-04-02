@@ -6,7 +6,7 @@ use OAuth\OAuth2Service;
 
 class Linkedin extends OAuth2Service
 {
-	/**
+    /**
      * @var string
      */
     protected $endpointAuthorization = 'https://www.linkedin.com/uas/oauth2/authorization';

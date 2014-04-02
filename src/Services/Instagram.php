@@ -5,7 +5,7 @@ use OAuth\OAuth2Service;
 
 class Instagram extends OAuth2Service
 {
-	/**
+    /**
      * @var string
      */
     protected $endpointAuthorization = 'https://api.instagram.com/oauth/authorize';

@@ -5,7 +5,7 @@ use OAuth\OAuth2Service;
 
 class Dropbox extends OAuth2Service
 {
-	/**
+    /**
      * @var string
      */
     protected $endpointAuthorization = 'https://www.dropbox.com/1/oauth2/authorize';

@@ -5,7 +5,7 @@ use OAuth\OAuth2Service;
 
 class Foursquare extends OAuth2Service
 {
-	/**
+    /**
      * @var string
      */
     protected $endpointAuthorization = 'https://foursquare.com/oauth2/authenticate';

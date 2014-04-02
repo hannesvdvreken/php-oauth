@@ -84,8 +84,7 @@ class Mailchimp extends OAuth2Service
     public function prepare()
     {
         // If the dc is not know, do a request.
-        if (is_null($this->dc))
-        {
+        if (is_null($this->dc)) {
             $this->dc = $this->getDatacenter();
         }
 

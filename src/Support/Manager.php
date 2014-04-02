@@ -19,8 +19,7 @@ class Manager
     public function consumer($service, $redirectUri = null, $scopes = null)
     {
         // use scope from config if not provided
-        if (is_null($scopes))
-        {
+        if (is_null($scopes)) {
             $scopes = Config::get('php-oauth::oauth.consumers.'. $service .'.scopes', array());
         }
 
@@ -32,7 +31,7 @@ class Manager
 
         // Get the credentials.
         $credentials = array_only(
-            Config::get('php-oauth::oauth.consumers.'. $service), 
+            Config::get('php-oauth::oauth.consumers.'. $service),
             array('client_id', 'client_secret')
         );
 
