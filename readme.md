@@ -157,16 +157,33 @@ $fb->accessToken($code);
 $profile = $fb->get('me')->send()->json();
 ```
 
+## Caveats
+
+### Stack Exchange
+Watch out when you're using the **Stack Exchange** provider.
+Stack Exchange [compresses](http://api.stackexchange.com/docs/compression) every single response
+(default gzip, or deflate if you set the `Accept-Encoding: deflate` header).
+If you're having trouble parsing the response, here's how I did it:
+
+```php
+$body = $client->get('users?site=stackoverflow')->send()->getBody();
+$body->uncompress(); // Returns true
+$json = json_encode((string) $body);
+```
+
+Please send a pull request if you found a better way for handling this.
+
 ## Supported services
-- CampaignMonitor
+- Campaign Monitor
 - Dropbox
 - Facebook
 - Foursquare
-- Github
+- GitHub
 - Google
 - Instagram
-- Mailchimp
+- MailChimp
 - Twitter (OAuth1.0a)
+- Stack Exchange
 
 ## Contributing
 Feel free to make a pull request. A new service class can be as simple as 22 lines of code.
