@@ -131,6 +131,20 @@ return array(
 
         /*
         |--------------------------------------------------------------------------
+        | Stack Exchange
+        |--------------------------------------------------------------------------
+        |
+        | For all possible scopes, look here: http://api.stackexchange.com/docs/authentication#scope
+        | Use the 'no_expiry' scope if you don't want access tokens to expire.
+        */
+        'stackexchange' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+            'scopes' => array(),
+        ),
+
+        /*
+        |--------------------------------------------------------------------------
         | Twitter
         |--------------------------------------------------------------------------
         */
