@@ -7,14 +7,14 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
 {
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
-     * 
+     *
      * @var string | null
      */
     protected $header = 'OAuth';
 
     /**
      * Can be one of 'access_token', 'oauth2_access_token', 'oauth_token', 'apikey' or whatever.
-     * 
+     *
      * @var string | null
      */
     protected $queryParam = null;
@@ -109,6 +109,8 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
             return $this->client->setDefaultOption('headers', array('Authorization' => $authorization));
         } elseif ($this->queryParam) {
             return $this->client->setDefaultOption('query', array($this->queryParam => $this->token['access_token']));
+        } else {
+            return $this->client;
         }
     }
 }
