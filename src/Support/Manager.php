@@ -1,7 +1,6 @@
 <?php
 namespace OAuth\Support;
 
-use GuzzleHttp\Client;
 use Illuminate\Foundation\Application;
 use Illuminate\Container\Container;
 
