@@ -60,7 +60,7 @@ class Mailchimp extends OAuth2Service
 
     /**
      * Parsing access token response
-     * 
+     *
      * @param  string $response
      * @return array
      */
@@ -102,16 +102,16 @@ class Mailchimp extends OAuth2Service
      * @param  array  $token
      * @return string
      */
-    public function getDatacenter($token = array())
+    public function getDatacenter($token = [])
     {
         // Use stored access token as fallback.
         $accessToken = isset($token['access_token']) ? $token['access_token'] : $this->token['access_token'];
-        
+
         // Build url.
         $endpoint = 'https://login.mailchimp.com/oauth2/metadata?oauth_token='. $accessToken;
 
         // Perform the request.
-        $response = $this->client->get($endpoint)->send(null)->json();
+        $response = $this->client->get($endpoint)->json();
 
         // Grab the data.
         return $response['dc'];

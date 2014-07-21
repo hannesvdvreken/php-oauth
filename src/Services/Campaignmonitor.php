@@ -28,14 +28,14 @@ class Campaignmonitor extends OAuth2Service
 
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
-     * 
+     *
      * @var string | null
      */
     protected $header = 'Bearer';
 
     /**
      * Parsing access token response
-     * 
+     *
      * @param  string $response
      * @return array
      */
@@ -43,10 +43,10 @@ class Campaignmonitor extends OAuth2Service
     {
         $token = json_decode($response, true);
 
-        return array(
+        return [
             'access_token' => $token['access_token'],
             'refresh_token' => $token['refresh_token'],
             'expires' => new DateTime('now + '. $token['expires_in'] .' seconds'),
-        );
+        ];
     }
 }

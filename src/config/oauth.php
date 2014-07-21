@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -11,33 +11,33 @@ return array(
     | of the services class name.
     |
     */
-    'consumers' => array(
+    'consumers' => [
 
         /*
         |--------------------------------------------------------------------------
         | Campaignmonitor
         |--------------------------------------------------------------------------
         |
-        | For all possible scopes, look here: 
+        | For all possible scopes, look here:
         | http://www.campaignmonitor.com/api/getting-started/#authenticating_with_oauth
         |
         */
-        'campaignmonitor' => array(
+        'campaignmonitor' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
         | Dropbox
         |--------------------------------------------------------------------------
         */
-        'dropbox' => array(
+        'dropbox' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -47,21 +47,21 @@ return array(
         | For all possible scopes, look here: https://developers.facebook.com/docs/reference/login/
         |
         */
-        'facebook' => array(
+        'facebook' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
         | Foursquare
         |--------------------------------------------------------------------------
         */
-        'foursquare' => array(
+        'foursquare' => [
             'client_id'     => '',
             'client_secret' => '',
-        ),
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -71,11 +71,11 @@ return array(
         | For all possible scopes, look here: http://developer.github.com/v3/oauth/#scopes
         |
         */
-        'github' => array(
+        'github' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -85,11 +85,11 @@ return array(
         | For all possible scopes, look here: https://developers.google.com/oauthplayground/
         |
         */
-        'google' => array(
+        'google' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -99,11 +99,11 @@ return array(
         | For all possible scopes, look here: http://instagram.com/developer/authentication/#scope
         |
         */
-        'instagram' => array(
+        'instagram' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -113,21 +113,21 @@ return array(
         | For all possible scopes, look here: https://developer.linkedin.com/documents/authentication#granting
         |
         */
-        'linkedin' => array(
+        'linkedin' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
         | Mailchimp
         |--------------------------------------------------------------------------
         */
-        'mailchimp' => array(
+        'mailchimp' => [
             'client_id'     => '',
             'client_secret' => '',
-        ),
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -137,22 +137,22 @@ return array(
         | For all possible scopes, look here: http://api.stackexchange.com/docs/authentication#scope
         | Use the 'no_expiry' scope if you don't want access tokens to expire.
         */
-        'stackexchange' => array(
+        'stackexchange' => [
             'client_id'     => '',
             'client_secret' => '',
-            'scopes' => array(),
-        ),
+            'scopes' => [],
+        ],
 
         /*
         |--------------------------------------------------------------------------
         | Twitter
         |--------------------------------------------------------------------------
         */
-        'twitter' => array(
+        'twitter' => [
             'client_id'     => '',
             'client_secret' => '',
-        ),
+        ],
 
-    ),
+    ],
 
-);
+];

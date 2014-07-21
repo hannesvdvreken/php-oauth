@@ -33,7 +33,7 @@ class Linkedin extends OAuth2Service
 
     /**
      * Parsing access token response
-     * 
+     *
      * @param  string $response
      * @return string
      */
@@ -43,9 +43,9 @@ class Linkedin extends OAuth2Service
         $token = json_decode($response, true);
 
         // Create a DateTime field.
-        return array(
+        return [
             'access_token' => $token['access_token'],
             'expires' => new DateTime('now +'. $token['expires_in']. ' seconds'),
-        );
+        ];
     }
 }
