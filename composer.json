@@ -11,11 +11,12 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=5.3.0",
-        "guzzle/guzzle": "3.8.*"
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "~4",
+        "guzzlehttp/oauth-subscriber": "0.1.*"
     },
     "require-dev": {
-        "illuminate/support": "4.1.*",
+        "illuminate/support": "4.*",
         "mockery/mockery": "0.9.*"
     },
     "autoload": {
