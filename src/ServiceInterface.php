@@ -1,6 +1,8 @@
 <?php
 namespace OAuth;
 
+use GuzzleHttp\Client;
+
 interface ServiceInterface
 {
     /**
@@ -9,7 +11,22 @@ interface ServiceInterface
      * @param  array  $options
      * @return string
      */
-    public function authorizationUrl(array $options = array());
+    public function authorizationUrl(array $options = []);
+
+    /**
+     * Get the HTTP Client
+     *
+     * @return GuzzleHttp\Client
+     */
+    public function getClient();
+
+    /**
+     * Set the HTTP Client
+     *
+     * @param  GuzzleHttp\Client $client
+     * @return ServiceInterface
+     */
+    public function setClient(Client $client);
 
     /**
      * Set token
