@@ -1,20 +1,17 @@
-# OAuth service classes with Guzzle
+# OAuth service classes with Guzzle (v4)
 [![Build Status](https://travis-ci.org/hannesvdvreken/php-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/php-oauth) [![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/php-oauth/v/stable.png)](https://packagist.org/packages/hannesvdvreken/php-oauth) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/php-oauth/downloads.png)](https://packagist.org/packages/hannesvdvreken/php-oauth)
 
 ## Usage
 
-Let's dive right in. 
+Let's dive right in.
 
 ### Setup
 
-One only needs a Guzzle Client to get started.
-
 ```php
-$client = new Guzzle\Http\Client;
-$service = new OAuth\Services\Github($client);
+$service = new OAuth\Services\Github();
 ```
 
-Other possible configuration can be passed on with the constructor, like so:
+Some possible configuration can be passed on with the constructor, like so:
 
 ```php
 $redirectUri = 'https://example.com/oauth/callback';
@@ -36,7 +33,7 @@ $service = new OAuth\Services\Github($client, $redirectUri, $credentials, $scope
 An alternative way is the following:
 
 ```php
-$service = new OAuth\Services\Github($client);
+$service = new OAuth\Services\Github;
 $service
     ->setRedirectUri($redirectUri)
     ->setCredentials($credentials)
@@ -53,26 +50,25 @@ $scopes      = $service->getScopes();
 $token       = $service->getToken();
 ```
 
-Even the Guzzle Client can be interchanged after the object creation.
+The `GuzzleHttp\Client` underneath can be accessed like so:
 
 ```php
-$service->setClient($client);
-$client = $service->getClient();
+$service->getClient();
 ```
 
 ### Requesting an API
 
-The internal Guzzle Client can be called by calling the same methods on the service class.
+The internal `GuzzleHttp\Client` can be called by calling the same methods on the service class.
 
 ```php
-$response = $service->get('users/self')->send()->json();
+$response = $service->get('users/self')->json();
 ```
 
 or
 
 ```php
-$post = array('status' => 'Tweeted with @hannesvdvreken/php-oauth');
-$status = $twitter->post('statuses/update', null, $post)->send()->json();
+$body = ['status' => 'Tweeted with @hannesvdvreken/php-oauth'];
+$status = $twitter->post('statuses/update', compact('body'))->json();
 ```
 
 The internal Guzzle Client will be called with the right token in the header or GET parameter.
@@ -94,11 +90,10 @@ php artisan config:publish hannesvdvreken/php-oauth
 
 ## OAuth 1.0a
 
-For the OAuth1.0a functionality we internally use the Guzzle [OAuth Plugin](docs.guzzlephp.org/en/latest/plugins/oauth-plugin.html). An example:
+For the OAuth1.0a functionality we internally use the Guzzle [OAuth1 subscriber](https://github.com/guzzle/oauth-subscriber). An example:
 
 ```php
-$client = new Guzzle\Http\Client;
-$twitter = new OAuth\Services\Twitter($client, $redirectUri, $credentials);
+$twitter = new OAuth\Services\Twitter($redirectUri, $credentials);
 
 // Request token for redirecting the user (store it in session afterwards).
 $token = $twitter->requestToken();
@@ -134,7 +129,7 @@ $twitter->setToken($token);
 $token = $twitter->accessToken($oauthToken, $oauthVerifier);
 
 // Do a get request, just like you would do with a Guzzle Client.
-$profile = $twitter->get('account/verify_credentials.json')->send()->json();
+$profile = $twitter->get('account/verify_credentials.json')->json();
 ```
 
 ## OAuth 2
@@ -142,7 +137,7 @@ $profile = $twitter->get('account/verify_credentials.json')->send()->json();
 The OAuth2 flow is easier.
 
 ```php
-$fb = new OAuth\Services\Facebook($client);
+$fb = new OAuth\Services\Facebook();
 
 $url = $fb->authorizationUrl();
 
@@ -154,7 +149,7 @@ In the callback controller...
 ```php
 $fb->accessToken($code);
 
-$profile = $fb->get('me')->send()->json();
+$profile = $fb->get('me')->json();
 ```
 
 ## Caveats
@@ -163,15 +158,17 @@ $profile = $fb->get('me')->send()->json();
 Watch out when you're using the **Stack Exchange** provider.
 Stack Exchange [compresses](http://api.stackexchange.com/docs/compression) every single response
 (default gzip, or deflate if you set the `Accept-Encoding: deflate` header).
+<!---
 If you're having trouble parsing the response, here's how I did it:
 
 ```php
-$body = $client->get('users?site=stackoverflow')->send()->getBody();
+$body = $client->get('users?site=stackoverflow')->getBody();
 $body->uncompress(); // Returns true
 $json = json_encode((string) $body);
 ```
 
 Please send a pull request if you found a better way for handling this.
+--->
 
 ## Supported services
 - Campaign Monitor
@@ -185,10 +182,23 @@ Please send a pull request if you found a better way for handling this.
 - Twitter (OAuth1.0a)
 - Stack Exchange
 
+## Guzzle v3
+
+If you want to continue to work with the old versions of this library that
+leveraged Guzzle v3 (`Guzzle\Http\Client` instead of `GuzzleHttp\Client`)
+then you might want to install the versions `0.1.*`, for stable releases,
+or the `dev-guzzle3` [branch](https://github.com/hannesvdvreken/php-oauth/tree/guzzle3)
+for the most recent commits.
+
 ## Contributing
 Feel free to make a pull request. A new service class can be as simple as 22 lines of code.
-Please try to be as [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) 
+Please try to be as [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 compliant as possible. There's no shame if you misplaced a bracket or so!
+
+### Testing
+
+After installing the dependencies (`composer install`) you just need to run
+`phpunit` to run the entire test-suite.
 
 ## License
 MIT
