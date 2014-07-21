@@ -1,7 +1,7 @@
 <?php
 namespace OAuth;
 
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use GuzzleHttp\Exception\RequestException;
 
 class OAuth2Service extends Service implements OAuth2ServiceInterface
 {
@@ -35,19 +35,19 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     public function accessToken($code)
     {
         // Build the body.
-        $body = array(
+        $body = [
             'code'          => $code,
             'client_id'     => $this->credentials['client_id'],
             'client_secret' => $this->credentials['client_secret'],
             'redirect_uri'  => $this->redirectUri,
             'grant_type'    => 'authorization_code',
-        );
+        ];
 
         // Make the request.
         try {
-            $response = $this->client->post($this->endpointAccessToken, null, $body)->send()->getBody(true);
-        } catch (ClientErrorResponseException $e) {
-            return $this->token = array();
+            $response = $this->client->post($this->endpointAccessToken, compact('body'))->getBody();
+        } catch (RequestException $e) {
+            return $this->token = [];
         }
 
         // Return the token.
@@ -60,14 +60,14 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
      * @param  string  $options
      * @return string
      */
-    public function authorizationUrl(array $options = array())
+    public function authorizationUrl(array $options = [])
     {
         // Build list of query parameters
-        $queryParams = array(
+        $queryParams = [
             'client_id'     => $this->credentials['client_id'],
             'redirect_uri'  => $this->redirectUri,
             'response_type' => 'code',
-        );
+        ];
 
         // Add the default type parameter.
         if ($this->type) {
@@ -100,17 +100,17 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     /**
      * Prepare the client for a request.
      *
-     * @return  Guzzle\Http\Client
+     * @return  GuzzleHttp\Client
      */
     protected function prepare()
     {
         if ($this->header) {
             $authorization = $this->header .' '. $this->token['access_token'];
-            return $this->client->setDefaultOption('headers', array('Authorization' => $authorization));
+            $this->client->setDefaultOption('headers', ['Authorization' => $authorization]);
         } elseif ($this->queryParam) {
-            return $this->client->setDefaultOption('query', array($this->queryParam => $this->token['access_token']));
-        } else {
-            return $this->client;
+            $this->client->setDefaultOption('query', [$this->queryParam => $this->token['access_token']]);
         }
+
+        return $this->client;
     }
 }

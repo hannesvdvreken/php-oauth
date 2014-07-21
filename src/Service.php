@@ -2,13 +2,13 @@
 namespace OAuth;
 
 use BadMethodCallException;
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Client;
 
 class Service implements ServiceInterface
 {
     /**
-     * @var Guzzle\Http\Client
+     * @var Client
      */
     protected $client;
 
@@ -54,21 +54,20 @@ class Service implements ServiceInterface
 
     /**
      * Constructor with the possibility to set the Guzzle client.
-     * 
-     * @param  Guzzle\Http\Client $client
+     *
+     * @param  GuzzleHttp\Client $client
      * @param  string $redirectUri
      * @param  array  $credentials
      * @param  array  $scopes
      * @param  array  $token
      */
     public function __construct(
-        Client $client,
         $redirectUri = '',
-        array $credentials = array(),
-        array $scopes = array(),
-        array $token = array()
+        array $credentials = [],
+        array $scopes = [],
+        array $token = []
     ) {
-        $this->client      = $client->setBaseUrl($this->base);
+        $this->client = new Client(['base_url' => $this->base]);
         $this->redirectUri = $redirectUri;
         $this->credentials = $credentials;
         $this->scopes      = $scopes;
@@ -76,21 +75,7 @@ class Service implements ServiceInterface
     }
 
     /**
-     * Get the authorization url. 
-     * Needs to be overwritten to add parameters.
-     *
-     * @param  array  $options
-     * @return string
-     */
-    public function authorizationUrl(array $options = array())
-    {
-        return $this->endpointAuthorization;
-    }
-
-    /**
-     * Get the HTTP Client
-     *
-     * @return Guzzle\Http\Client
+     * @return Client
      */
     public function getClient()
     {
@@ -98,15 +83,15 @@ class Service implements ServiceInterface
     }
 
     /**
-     * Set the HTTP Client
+     * Get the authorization url.
+     * Needs to be overwritten to add parameters.
      *
-     * @param  Guzzle\Http\Client $client
-     * @return OAuth\OAuth2Service
+     * @param  array  $options
+     * @return string
      */
-    public function setClient(Client $client)
+    public function authorizationUrl(array $options = [])
     {
-        $this->client = $client;
-        return $this;
+        return $this->endpointAuthorization;
     }
 
     /**
@@ -198,17 +183,6 @@ class Service implements ServiceInterface
     }
 
     /**
-     * Prepare the client for a request. 
-     * Needs to be overwritten to configure the client.
-     *
-     * @return  Guzzle\Http\Client
-     */
-    protected function prepare()
-    {
-        return $this->client;
-    }
-
-    /**
      * Dynamically pass calls to the client.
      *
      * @param  string  $method
@@ -224,5 +198,16 @@ class Service implements ServiceInterface
         $callable = array($this->prepare(), $method);
 
         return call_user_func_array($callable, $parameters);
+    }
+
+    /**
+     * Prepare the client for a request.
+     * Needs to be overwritten to configure the client.
+     *
+     * @return  GuzzleHttp\Client
+     */
+    protected function prepare()
+    {
+        return $this->client;
     }
 }

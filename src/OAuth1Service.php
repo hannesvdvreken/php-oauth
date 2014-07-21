@@ -1,9 +1,7 @@
 <?php
 namespace OAuth;
 
-use Guzzle\Http\Client;
-use Guzzle\Plugin\Oauth\OauthPlugin;
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 class OAuth1Service extends Service implements OAuth1ServiceInterface
 {
@@ -24,13 +22,13 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
             return $this->token;
         }
 
-        $plugin = new OauthPlugin(array(
+        $subscriber = new Oauth1([
             'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
-        ));
+        ]);
 
-        $request = $this->client->addSubscriber($plugin)->post($this->endpointRequestToken);
-        $response = $request->send()->getBody(true);
+        $this->client->getEmitter()->attach($subscriber);
+        $response = $this->client->post($this->endpointRequestToken, ['auth' => 'oauth'])->getBody();
 
         return $this->token = $this->parseRequestToken($response);
     }
@@ -56,21 +54,23 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
      */
     public function accessToken($oauthToken, $oauthVerifier)
     {
-        $plugin = new OauthPlugin(array(
+        $subscriber = new Oauth1([
             'consumer_key'    => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
             'token'           => $oauthToken,
             'token_secret'    => $this->token['oauth_token_secret'],
-        ));
+        ]);
 
-        $postData = array('oauth_verifier' => $oauthVerifier);
+        $body = ['oauth_verifier' => $oauthVerifier];
 
-        $request = $this->client->addSubscriber($plugin)->post($this->endpointAccessToken, null, $postData);
-        $response = $request->send()->getBody(true);
+        $this->client->getEmitter()->attach($subscriber);
+        $response = $this->client
+            ->post($this->endpointAccessToken, ['body' => $body, 'auth' => 'oauth'])
+            ->getBody();
 
         $this->token = array_only(
             $data = $this->parseAccessToken($response),
-            array('oauth_token', 'oauth_token_secret')
+            ['oauth_token', 'oauth_token_secret']
         );
 
         return $data;
@@ -94,7 +94,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
      * @param  string  $options
      * @return string
      */
-    public function authorizationUrl(array $options = array())
+    public function authorizationUrl(array $options = [])
     {
         // Request the initial request token.
         extract($this->requestToken());
@@ -117,19 +117,24 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Prepare the client for a request.
      *
-     * @return  Guzzle\Http\Client
+     * @return  GuzzleHttp\Client
      */
     protected function prepare()
     {
-        // Create an OAuth Plugin for Guzzle.
-        $plugin = new OauthPlugin(array(
+        // Create an OAuth1 Subscriber for Guzzle.
+        $subscriber = new Oauth1([
             'consumer_key'    => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
             'token'           => $this->token['oauth_token'],
             'token_secret'    => $this->token['oauth_token_secret'],
-        ));
+        ]);
 
         // Assign it and return the client itself.
-        return $this->client->addSubscriber($plugin);
+        $this->client->getEmitter()->attach($subscriber);
+
+        // Enable the subscriber for all requests.
+        $this->client->setDefaultOption('auth', 'oauth');
+
+        return $this->client;
     }
 }
