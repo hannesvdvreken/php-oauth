@@ -2,6 +2,7 @@
 namespace OAuth\Services;
 
 use OAuth\OAuth2Service;
+use GuzzleHttp\Client;
 use DateTime;
 
 class Mailchimp extends OAuth2Service
@@ -86,11 +87,12 @@ class Mailchimp extends OAuth2Service
         // If the dc is not know, do a request.
         if (is_null($this->dc)) {
             $this->dc = $this->getDatacenter();
-        }
 
-        // Set the base url.
-        $this->base = 'https://'. $this->dc .'.api.mailchimp.com/2.0/';
-        $this->client->setBaseUrl($this->base);
+            // Set the base url.
+            $this->base = 'https://'. $this->dc .'.api.mailchimp.com/2.0/';
+
+            $this->client = new Client(['base_url' => $this->base]);
+        }
 
         // Let the parent method do it's job.
         return parent::prepare();

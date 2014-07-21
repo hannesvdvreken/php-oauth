@@ -23,7 +23,7 @@ class Google extends OAuth2Service
 
     /**
      * Parsing the access token response.
-     * 
+     *
      * @param  string $response
      * @return array
      */

@@ -28,7 +28,7 @@ class Stackexchange extends OAuth2Service
 
     /**
      * Parsing access token response
-     * 
+     *
      * @param  string $response
      * @return string
      */

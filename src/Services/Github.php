@@ -22,14 +22,14 @@ class Github extends OAuth2Service
 
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
-     * 
+     *
      * @var string | null
      */
     protected $header = 'Bearer';
 
     /**
      * Parsing access token response
-     * 
+     *
      * @param  string $response
      * @return array
      */
