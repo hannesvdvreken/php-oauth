@@ -186,9 +186,7 @@ Please send a pull request if you found a better way for handling this.
 
 If you want to continue to work with the old versions of this library that
 leveraged Guzzle v3 (`Guzzle\Http\Client` instead of `GuzzleHttp\Client`)
-then you might want to install the versions `0.1.*`, for stable releases,
-or the `dev-guzzle3` [branch](https://github.com/hannesvdvreken/php-oauth/tree/guzzle3)
-for the most recent commits.
+then you might want to install the `0.1.*` releases. Pull request with Guzzle v3 compatibility should be made against the `guzzle3` [branch](https://github.com/hannesvdvreken/php-oauth/tree/guzzle3). Install the latest guzzle v3 version with `0.1.*` or `dev-guzzle3`.
 
 ## Contributing
 Feel free to make a pull request. A new service class can be as simple as 22 lines of code.
