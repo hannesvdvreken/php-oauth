@@ -152,24 +152,6 @@ $fb->accessToken($code);
 $profile = $fb->get('me')->json();
 ```
 
-## Caveats
-
-### Stack Exchange
-Watch out when you're using the **Stack Exchange** provider.
-Stack Exchange [compresses](http://api.stackexchange.com/docs/compression) every single response
-(default gzip, or deflate if you set the `Accept-Encoding: deflate` header).
-<!---
-If you're having trouble parsing the response, here's how I did it:
-
-```php
-$body = $client->get('users?site=stackoverflow')->getBody();
-$body->uncompress(); // Returns true
-$json = json_encode((string) $body);
-```
-
-Please send a pull request if you found a better way for handling this.
---->
-
 ## Supported services
 - Campaign Monitor
 - Dropbox
