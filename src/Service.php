@@ -72,6 +72,7 @@ class Service implements ServiceInterface
         $this->credentials = $credentials;
         $this->scopes      = $scopes;
         $this->token       = $token;
+        $this->boot();
     }
 
     /**
@@ -210,4 +211,11 @@ class Service implements ServiceInterface
     {
         return $this->client;
     }
+
+    /**
+     * Boot method
+     *
+     * @return void
+     */
+    protected function boot() {}
 }
