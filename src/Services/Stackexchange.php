@@ -42,4 +42,14 @@ class Stackexchange extends OAuth2Service
 
         return $data;
     }
+
+    /**
+     * Boot method.
+     *
+     * @return void
+     */
+    protected function boot()
+    {
+        $this->client->setDefaultOption('headers/Accept-Encoding', 'gzip');
+    }
 }
