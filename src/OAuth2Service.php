@@ -106,7 +106,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     {
         if ($this->header) {
             $authorization = $this->header .' '. $this->token['access_token'];
-            $this->client->setDefaultOption('headers', ['Authorization' => $authorization]);
+            $this->client->setDefaultOption('headers/Authorization', $authorization);
         } elseif ($this->queryParam) {
             $this->client->setDefaultOption('query', [$this->queryParam => $this->token['access_token']]);
         }
