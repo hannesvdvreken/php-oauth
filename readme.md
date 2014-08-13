@@ -1,5 +1,9 @@
 # OAuth service classes with Guzzle (v4)
-[![Build Status](https://travis-ci.org/hannesvdvreken/php-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/php-oauth) [![Latest Stable Version](https://poser.pugx.org/hannesvdvreken/php-oauth/v/stable.png)](https://packagist.org/packages/hannesvdvreken/php-oauth) [![Total Downloads](https://poser.pugx.org/hannesvdvreken/php-oauth/downloads.png)](https://packagist.org/packages/hannesvdvreken/php-oauth)
+[![Build Status](http://img.shields.io/travis/hannesvdvreken/php-oauth.svg?style=flat-square)](https://travis-ci.org/hannesvdvreken/php-oauth)
+[![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/php-oauth.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/php-oauth)
+[![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/php-oauth.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/php-oauth)
+[![Coverage Status](https://img.shields.io/coveralls/hannesvdvreken/php-oauth.svg?style=flat-square)](https://coveralls.io/r/hannesvdvreken/php-oauth?branch=master)
+[![License](http://img.shields.io/packagist/l/hannesvdvreken/php-oauth.svg?style=flat-square)](#license)
 
 ## Usage
 
