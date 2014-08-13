@@ -76,6 +76,20 @@ class Service implements ServiceInterface
     }
 
     /**
+     * Swap out the internal Guzzle client.
+     *
+     * @param Client $client
+     * @return ServiceInterface
+     */
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * Get the internal Guzzle client.
+     *
      * @return Client
      */
     public function getClient()
