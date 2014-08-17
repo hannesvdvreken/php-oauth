@@ -20,7 +20,7 @@ class ServiceProviderTest extends PHPUnit_Framework_TestCase
     public function boot()
     {
         // Arrange
-        $app = Mockery::mock('Illuminate\Foundation\Application');
+        $app = Mockery::mock('Illuminate\Container\Container', 'ArrayAccess');
         $app->shouldReceive('offsetGet')->times(4)
             ->with('files')->andReturn($app);
         $app->shouldReceive('isDirectory')->times(4)
@@ -43,7 +43,7 @@ class ServiceProviderTest extends PHPUnit_Framework_TestCase
     public function register()
     {
         // Arrange
-        $app = Mockery::mock('Illuminate\Foundation\Application');
+        $app = Mockery::mock('Illuminate\Container\Container', 'ArrayAccess');
         $dir = __DIR__ .'/../config';
         $dir = str_replace('tests/unit', 'src', $dir);
 
@@ -53,7 +53,7 @@ class ServiceProviderTest extends PHPUnit_Framework_TestCase
             ->with('hannesvdvreken/php-oauth', $dir);
         $app->shouldReceive('bind')->once()
             ->with('oauth', Mockery::on(function (\Closure $closure) {
-                $app = Mockery::mock('Illuminate\Foundation\Application');
+                $app = Mockery::mock('Illuminate\Container\Container');
                 $manager = new Manager($app);
                 $app->shouldReceive('make')->once()
                     ->with('OAuth\Support\Manager')->andReturn($manager);

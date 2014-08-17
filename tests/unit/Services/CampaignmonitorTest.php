@@ -1,8 +1,8 @@
 <?php
 
-use OAuth\Services\CampaignMonitor;
+use OAuth\Services\Campaignmonitor;
 
-class CampaignMonitorTest extends PHPUnit_Framework_Testcase
+class CampaignmonitorTest extends PHPUnit_Framework_Testcase
 {
     /**
      * Test the parseAccessToken method.
@@ -21,7 +21,7 @@ class CampaignMonitorTest extends PHPUnit_Framework_Testcase
             'expires' => $expires,
         ];
 
-        $service = new CampaignMonitor;
+        $service = new Campaignmonitor;
 
         // Act
         $returned = $service->parseAccessToken($string);

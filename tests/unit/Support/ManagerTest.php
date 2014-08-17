@@ -21,7 +21,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     public function consumer()
     {
         // Arrange
-        $app = Mockery::mock('Illuminate\Foundation\Application');
+        $app = Mockery::mock('Illuminate\Container\Container', 'ArrayAccess');
         $redirectUri = 'https://example.org/callback';
         $scopes = ['email', 'read'];
         $credentials = ['client_id' => 'cl13nt1d', 'client_secret' => 'cl13nts3cr3t'];
@@ -53,7 +53,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     public function consumer_default_arguments()
     {
         // Arrange
-        $app = Mockery::mock('Illuminate\Foundation\Application');
+        $app = Mockery::mock('Illuminate\Container\Container', 'ArrayAccess');
         $redirectUri = 'https://example.org/callback';
         $scopes = ['email', 'read'];
         $credentials = ['client_id' => 'cl13nt1d', 'client_secret' => 'cl13nts3cr3t'];
