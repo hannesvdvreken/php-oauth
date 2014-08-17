@@ -1,22 +1,21 @@
 <?php
 namespace OAuth\Support;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Container\Container;
 
 class Manager
 {
     /**
-     * @var  Illuminate\Foundation\Application
+     * @var  Illuminate\Container\Container
      */
     protected $app;
 
     /**
      * Public constructor with DI
      *
-     * @param  Application $app
+     * @param  Container $app
      */
-    public function __construct(Application $app)
+    public function __construct(Container $app)
     {
         $this->app = $app;
     }
@@ -45,15 +44,11 @@ class Manager
             ['client_id', 'client_secret']
         );
 
-
         // Generate class name.
-        $class = '\OAuth\Services\\'. ucfirst($service);
+        $class = 'OAuth\Services\\'. ucfirst($service);
 
-        // Create consumer class.
-        $consumer = $this->app->make($class);
-
-        // Configure the consumer and return it.
-        return $consumer
+        // Create configured consumer object.
+        return $this->app->make($class)
             ->setScopes($scopes)
             ->setRedirectUri($redirectUri)
             ->setCredentials($credentials);

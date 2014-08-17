@@ -46,6 +46,12 @@ class Mailchimp extends OAuth2Service
     public function setDc($dc)
     {
         $this->dc = $dc;
+
+        // Set the base url.
+        $this->base = 'https://'. $this->dc .'.api.mailchimp.com/2.0/';
+
+        $this->client = new Client(['base_url' => $this->base]);
+        
         return $this;
     }
 
@@ -86,12 +92,7 @@ class Mailchimp extends OAuth2Service
     {
         // If the dc is not know, do a request.
         if (is_null($this->dc)) {
-            $this->dc = $this->getDatacenter();
-
-            // Set the base url.
-            $this->base = 'https://'. $this->dc .'.api.mailchimp.com/2.0/';
-
-            $this->client = new Client(['base_url' => $this->base]);
+            $this->setDc($this->getDatacenter());
         }
 
         // Let the parent method do it's job.

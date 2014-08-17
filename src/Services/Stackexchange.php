@@ -1,6 +1,7 @@
 <?php
 namespace OAuth\Services;
 
+use GuzzleHttp\Client;
 use OAuth\OAuth2Service;
 use DateTime;
 
@@ -44,12 +45,15 @@ class Stackexchange extends OAuth2Service
     }
 
     /**
-     * Boot method.
+     * Override setClient method.
      *
-     * @return void
+     * @param  Client $client
+     * @return OAuth\Service
      */
-    protected function boot()
+    public function setClient(Client $client)
     {
+        $this->client = $client;
         $this->client->setDefaultOption('headers/Accept-Encoding', 'gzip');
+        return $this;
     }
 }

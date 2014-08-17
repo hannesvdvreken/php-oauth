@@ -2,6 +2,7 @@
 namespace OAuth;
 
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use GuzzleHttp\Exception\RequestException;
 
 class OAuth1Service extends Service implements OAuth1ServiceInterface
 {
@@ -28,7 +29,12 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         ]);
 
         $this->client->getEmitter()->attach($subscriber);
-        $response = $this->client->post($this->endpointRequestToken, ['auth' => 'oauth'])->getBody();
+
+        try {
+            $response = $this->client->post($this->endpointRequestToken, ['auth' => 'oauth'])->getBody();
+        } catch (RequestException $rex) {
+            return [];
+        }
 
         return $this->token = $this->parseRequestToken($response);
     }
@@ -68,10 +74,11 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
             ->post($this->endpointAccessToken, ['body' => $body, 'auth' => 'oauth'])
             ->getBody();
 
-        $this->token = array_only(
-            $data = $this->parseAccessToken($response),
-            ['oauth_token', 'oauth_token_secret']
-        );
+        $data = $this->parseAccessToken($response);
+        $keys = ['oauth_token', 'oauth_token_secret'];
+
+        // array_only
+        $this->token = array_intersect_key($data, array_flip((array) $keys));
 
         return $data;
     }

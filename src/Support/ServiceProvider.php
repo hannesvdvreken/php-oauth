@@ -13,7 +13,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->package('hannesvdvreken/php-oauth');
     }
-    
+
     /**
      * Register method
      */
@@ -24,11 +24,7 @@ class ServiceProvider extends BaseServiceProvider
 
         // bind object for OAuth Facade
         $this->app->bind('oauth', function ($app) {
-            return $app->make('\OAuth\Support\Manager');
+            return $app->make('OAuth\Support\Manager');
         });
-
-        // Add an alias for the Facade.
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('OAuth', 'OAuth\Support\Facade');
     }
 }
