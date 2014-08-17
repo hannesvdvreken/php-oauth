@@ -26,9 +26,5 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->bind('oauth', function ($app) {
             return $app->make('OAuth\Support\Manager');
         });
-        
-        // Add an alias for the Facade.
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('OAuth', 'OAuth\Support\Facade');
     }
 }
