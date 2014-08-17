@@ -80,7 +80,7 @@ All you need to do is load the service class with the correct credentials or tok
 
 ## Laravel 4
 If you're using Laravel 4, feel free to register the contained service provider (`OAuth\Support\ServiceProvider`).
-It registers the `OAuth` class alias for the facade to use the following syntax to get a fully configured service class:
+Register the `OAuth` class alias for the facade to use the following syntax to get a fully configured service class:
 
 ```php
 $twitter = OAuth::consumer('twitter');
