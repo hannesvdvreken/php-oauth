@@ -31,7 +31,7 @@ $token = array(
     'access_token' => $accessToken;
 );
 
-$service = new OAuth\Services\Github($client, $redirectUri, $credentials, $scopes, $token);
+$service = new OAuth\Services\Github($redirectUri, $credentials, $scopes, $token);
 ```
 
 An alternative way is the following:
@@ -57,6 +57,7 @@ $token       = $service->getToken();
 The `GuzzleHttp\Client` underneath can be accessed like so:
 
 ```php
+$service->setClient(new GuzzleHttp\Client);
 $service->getClient();
 ```
 
