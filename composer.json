@@ -12,7 +12,7 @@
     "type": "library",
     "require": {
         "php": ">=5.4.0",
-        "guzzlehttp/guzzle": "~4",
+        "guzzlehttp/guzzle": "~4|~5",
         "guzzlehttp/oauth-subscriber": "0.1.*"
     },
     "require-dev": {
