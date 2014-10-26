@@ -1,0 +1,11 @@
+{
+  "providers": [
+    "OAuth\\Support\\ServiceProvider"
+  ],
+  "aliases": [
+    {
+      "alias": "OAuth",
+      "facade": "OAuth\\Support\\Facade"
+    }
+  ]
+}
