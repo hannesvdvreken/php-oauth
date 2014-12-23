@@ -186,4 +186,4 @@ After installing the dependencies (`composer install`) you just need to run
 `phpunit` to run the entire test-suite.
 
 ## License
-MIT
+[MIT](license)
