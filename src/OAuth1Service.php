@@ -26,6 +26,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         $subscriber = new Oauth1([
             'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
+            'callback' => isset($this->oauth_callback)? $this->oauth_callback: null,
         ]);
 
         $this->client->getEmitter()->attach($subscriber);
