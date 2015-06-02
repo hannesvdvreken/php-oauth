@@ -6,16 +6,6 @@ use OAuth\OAuth1Service;
 class Twitter extends OAuth1Service
 {
     /**
-     * Set the oauth callback URL to be used in requestToken()
-     *
-     * @param  string  $callback
-     * @return void
-     */
-    public function setOAuthCallback($callback){
-        $this->oauth_callback = $callback;
-    }
-
-    /**
      * @var string
      */
     protected $endpointAuthorization = 'https://api.twitter.com/oauth/authenticate';

@@ -29,6 +29,58 @@ class OAuth1ServiceTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
+    public function oauth_callback_setter_and_getter()
+    {
+        // Arrange
+        $service = new OAuth1Service;
+        $callbackUrl = 'http://callback-url.org/arrive';
+
+        //Act
+        $returned = $service->setOAuthCallback($callbackUrl)->getOAuthCallback();
+
+        //Assert
+        $this->assertEquals($callbackUrl, $returned);
+    }
+
+    /**
+     * Test the request token method with the optional callback url.
+     *
+     * @test
+     */
+    public function request_token_custom_callback()
+    {
+        // Arrange
+        $service = new OAuth1Service;
+        $credentials = [
+            'client_id' => 'cl13nt1d',
+            'client_secret' => 'cl13nts3cr3t',
+        ];
+        $body = [
+            'oauth_token' => 'O4thtOk3n',
+            'oauth_token_secret' => '04ths3cr3t',
+        ];
+        $custom_callback = 'http://callback-url.org/arrive';
+        $client = new Client;
+        $responseBody = Stream::factory(http_build_query($body));
+        $mock = new Mock([new Response(200, [], $responseBody)]);
+        $client->getEmitter()->attach($mock);
+
+        $service->setCredentials($credentials);
+        $service->setClient($client);
+        $service->setOAuthCallback($custom_callback);
+
+        // Act
+        $returned = $service->requestToken();
+
+        // Assert
+        $this->assertEquals($body, $returned);
+    }
+
+    /**
+     * Test the request token method.
+     *
+     * @test
+     */
     public function request_token()
     {
         // Arrange
