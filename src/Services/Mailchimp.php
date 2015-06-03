@@ -3,7 +3,6 @@ namespace OAuth\Services;
 
 use OAuth\OAuth2Service;
 use GuzzleHttp\Client;
-use DateTime;
 
 class Mailchimp extends OAuth2Service
 {
@@ -28,20 +27,20 @@ class Mailchimp extends OAuth2Service
     protected $base = '';
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $header = null;
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $queryParam = 'apikey';
 
     /**
      * Set DC.
      *
-     * @param  string $dc
-     * @return OAuth\Service\Mailchimp
+     * @param string $dc
+     * @return \OAuth\Services\Mailchimp
      */
     public function setDc($dc)
     {
@@ -68,7 +67,7 @@ class Mailchimp extends OAuth2Service
     /**
      * Parsing access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     public function parseAccessToken($response)
@@ -86,7 +85,7 @@ class Mailchimp extends OAuth2Service
     /**
      * Prepare the client for a request.
      *
-     * @return  Guzzle\Http\Client
+     * @return \GuzzleHttp\ClientInterface
      */
     public function prepare()
     {
@@ -102,7 +101,7 @@ class Mailchimp extends OAuth2Service
     /**
      * Get the DC for the access token.
      *
-     * @param  array  $token
+     * @param array $token
      * @return string
      */
     public function getDatacenter($token = [])

@@ -6,7 +6,7 @@ interface ServiceInterface
     /**
      * Get the authorization url.
      *
-     * @param  array  $options
+     * @param array $options
      * @return string
      */
     public function authorizationUrl(array $options = []);
@@ -14,8 +14,8 @@ interface ServiceInterface
     /**
      * Set token
      *
-     * @param  array  $token
-     * @return ServiceInterface
+     * @param array $token
+     * @return \OAuth\ServiceInterface
      */
     public function setToken(array $token);
 
@@ -29,18 +29,18 @@ interface ServiceInterface
     /**
      * Set credentials
      *
-     * @param  array  $credentials
-     * @return ServiceInterface
+     * @param array $credentials
+     * @return \OAuth\ServiceInterface
      */
     public function setCredentials(array $credentials);
 
     /**
      * Set scope
      *
-     * @param  array  $scope
-     * @return ServiceInterface
+     * @param array $scopes
+     * @return \OAuth\ServiceInterface
      */
-    public function setScopes(array $scope);
+    public function setScopes(array $scopes);
 
     /**
      * Get scope
@@ -52,10 +52,10 @@ interface ServiceInterface
     /**
      * Set redirect uri
      *
-     * @param  string $redirectUri
-     * @return ServiceInterface
+     * @param string $redirectUri
+     * @return \OAuth\ServiceInterface
      */
-    public function setRedirectUri($uri);
+    public function setRedirectUri($redirectUri);
 
     /**
      * Get redirect uri

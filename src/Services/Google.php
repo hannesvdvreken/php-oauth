@@ -1,8 +1,8 @@
 <?php
 namespace OAuth\Services;
 
-use OAuth\OAuth2Service;
 use DateTime;
+use OAuth\OAuth2Service;
 
 class Google extends OAuth2Service
 {
@@ -24,7 +24,7 @@ class Google extends OAuth2Service
     /**
      * Parsing the access token response.
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     public function parseAccessToken($response)

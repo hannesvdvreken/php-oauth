@@ -26,12 +26,12 @@ class Vkontakte extends OAuth2Service
     protected $scopeDelimiter = ',';
 
     /**
-     * @var null
+     * @var string|null
      */
     protected $header = null;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $queryParam = 'access_token';
 }

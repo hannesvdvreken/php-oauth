@@ -1,9 +1,9 @@
 <?php
 namespace OAuth\Services;
 
-use GuzzleHttp\Client;
-use OAuth\OAuth2Service;
 use DateTime;
+use GuzzleHttp\ClientInterface;
+use OAuth\OAuth2Service;
 
 class Stackexchange extends OAuth2Service
 {
@@ -30,7 +30,7 @@ class Stackexchange extends OAuth2Service
     /**
      * Parsing access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return string
      */
     public function parseAccessToken($response)
@@ -47,10 +47,10 @@ class Stackexchange extends OAuth2Service
     /**
      * Override setClient method.
      *
-     * @param  Client $client
-     * @return OAuth\Service
+     * @param \GuzzleHttp\ClientInterface $client
+     * @return \OAuth\Service
      */
-    public function setClient(Client $client)
+    public function setClient(ClientInterface $client)
     {
         $this->client = $client;
         $this->client->setDefaultOption('headers/Accept-Encoding', 'gzip');

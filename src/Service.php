@@ -2,13 +2,12 @@
 namespace OAuth;
 
 use BadMethodCallException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 class Service implements ServiceInterface
 {
     /**
-     * @var Client
+     * @var \GuzzleHttp\ClientInterface
      */
     protected $client;
 
@@ -55,11 +54,10 @@ class Service implements ServiceInterface
     /**
      * Constructor with the possibility to set the Guzzle client.
      *
-     * @param  GuzzleHttp\Client $client
-     * @param  string $redirectUri
-     * @param  array  $credentials
-     * @param  array  $scopes
-     * @param  array  $token
+     * @param string $redirectUri
+     * @param array $credentials
+     * @param array $scopes
+     * @param array $token
      */
     public function __construct(
         $redirectUri = '',
@@ -70,17 +68,17 @@ class Service implements ServiceInterface
         $this->setClient(new Client(['base_url' => $this->base]));
         $this->redirectUri = $redirectUri;
         $this->credentials = $credentials;
-        $this->scopes      = $scopes;
-        $this->token       = $token;
+        $this->scopes = $scopes;
+        $this->token = $token;
     }
 
     /**
      * Swap out the internal Guzzle client.
      *
-     * @param Client $client
-     * @return ServiceInterface
+     * @param \GuzzleHttp\ClientInterface $client
+     * @return \OAuth\ServiceInterface
      */
-    public function setClient(Client $client)
+    public function setClient(ClientInterface $client)
     {
         $this->client = $client;
         return $this;
@@ -89,7 +87,7 @@ class Service implements ServiceInterface
     /**
      * Get the internal Guzzle client.
      *
-     * @return Client
+     * @return \GuzzleHttp\ClientInterface
      */
     public function getClient()
     {
@@ -100,7 +98,7 @@ class Service implements ServiceInterface
      * Get the authorization url.
      * Needs to be overwritten to add parameters.
      *
-     * @param  array  $options
+     * @param array $options
      * @return string
      */
     public function authorizationUrl(array $options = [])
@@ -111,8 +109,8 @@ class Service implements ServiceInterface
     /**
      * Set token
      *
-     * @param  array  $token
-     * @return ServiceInterface
+     * @param array $token
+     * @return \OAuth\ServiceInterface
      */
     public function setToken(array $token)
     {
@@ -133,8 +131,8 @@ class Service implements ServiceInterface
     /**
      * Set credentials
      *
-     * @param  array  $credentials
-     * @return ServiceInterface
+     * @param array $credentials
+     * @return \OAuth\ServiceInterface
      */
     public function setCredentials(array $credentials)
     {
@@ -145,7 +143,7 @@ class Service implements ServiceInterface
     /**
      * Get credentials
      *
-     * @return array  $credentials
+     * @return array $credentials
      */
     public function getCredentials()
     {
@@ -155,8 +153,8 @@ class Service implements ServiceInterface
     /**
      * Set scope
      *
-     * @param  array  $scope
-     * @return ServiceInterface
+     * @param array $scopes
+     * @return \OAuth\ServiceInterface
      */
     public function setScopes(array $scopes)
     {
@@ -177,12 +175,12 @@ class Service implements ServiceInterface
     /**
      * Set redirect uri
      *
-     * @param  string $redirectUri
-     * @return ServiceInterface
+     * @param string $redirectUri
+     * @return \OAuth\ServiceInterface
      */
-    public function setRedirectUri($uri)
+    public function setRedirectUri($redirectUri)
     {
-        $this->redirectUri = $uri;
+        $this->redirectUri = $redirectUri;
         return $this;
     }
 
@@ -199,8 +197,8 @@ class Service implements ServiceInterface
     /**
      * Dynamically pass calls to the client.
      *
-     * @param  string  $method
-     * @param  array   $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
     public function __call($method, $parameters)
@@ -218,7 +216,7 @@ class Service implements ServiceInterface
      * Prepare the client for a request.
      * Needs to be overwritten to configure the client.
      *
-     * @return  GuzzleHttp\Client
+     * @return \GuzzleHttp\ClientInterface
      */
     protected function prepare()
     {

@@ -23,12 +23,12 @@ class Dropbox extends OAuth2Service
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
      *
-     * @var string | null
+     * @var string|null
      */
     protected $header = 'Bearer';
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $type = null;
 }

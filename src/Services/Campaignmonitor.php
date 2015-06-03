@@ -1,8 +1,8 @@
 <?php
 namespace OAuth\Services;
 
-use OAuth\OAuth2Service;
 use DateTime;
+use OAuth\OAuth2Service;
 
 class Campaignmonitor extends OAuth2Service
 {
@@ -29,14 +29,14 @@ class Campaignmonitor extends OAuth2Service
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
      *
-     * @var string | null
+     * @var string|null
      */
     protected $header = 'Bearer';
 
     /**
      * Parsing access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     public function parseAccessToken($response)
