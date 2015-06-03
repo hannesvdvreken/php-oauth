@@ -2,6 +2,7 @@
 namespace OAuth;
 
 use BadMethodCallException;
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 
 class Service implements ServiceInterface
