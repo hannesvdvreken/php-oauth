@@ -1,4 +1,4 @@
-# OAuth service classes with Guzzle (v4)
+# OAuth service classes with Guzzle (v4 and v5, but not v6)
 [![Build Status](http://img.shields.io/travis/hannesvdvreken/php-oauth.svg?style=flat-square)](https://travis-ci.org/hannesvdvreken/php-oauth)
 [![Latest Stable Version](http://img.shields.io/packagist/v/hannesvdvreken/php-oauth.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/php-oauth)
 [![Total Downloads](http://img.shields.io/packagist/dt/hannesvdvreken/php-oauth.svg?style=flat-square)](https://packagist.org/packages/hannesvdvreken/php-oauth)
