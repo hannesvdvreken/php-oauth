@@ -11,8 +11,9 @@ matrix:
     - php: hhvm
 
 before_script:
+  - composer config -g github-oauth.github.com $GH_TOKEN
   - travis_retry composer self-update
-  - travis_retry composer update --prefer-source --no-interaction $COMPOSER_FLAGS
+  - travis_retry composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
   - phpunit $COLLECT_COVERAGE
