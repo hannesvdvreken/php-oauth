@@ -1,8 +1,8 @@
 <?php
 namespace OAuth\Services;
 
-use OAuth\OAuth2Service;
 use DateTime;
+use OAuth\OAuth2Service;
 
 class Facebook extends OAuth2Service
 {
@@ -29,7 +29,7 @@ class Facebook extends OAuth2Service
     /**
      * Parsing access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return string
      */
     public function parseAccessToken($response)

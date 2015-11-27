@@ -6,8 +6,8 @@ interface OAuth1ServiceInterface extends ServiceInterface
     /**
      * Set the oauth callback URL to be used in requestToken()
      *
-     * @param  string  $callback
-     * @return ServiceInterface
+     * @param string $callback
+     * @return \OAuth\OAuth1ServiceInterface
      */
     public function setOAuthCallback($callback);
 
@@ -28,8 +28,8 @@ interface OAuth1ServiceInterface extends ServiceInterface
     /**
      * Request the service an access token.
      * 
-     * @param  string $oauthToken
-     * @param  string $oauthVerifier
+     * @param string $oauthToken
+     * @param string $oauthVerifier
      * @return array
      */
     public function accessToken($oauthToken, $oauthVerifier);

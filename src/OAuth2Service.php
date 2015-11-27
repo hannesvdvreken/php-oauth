@@ -8,28 +8,28 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     /**
      * Can be one of 'OAuth', 'Bearer' or null.
      *
-     * @var string | null
+     * @var string|null
      */
     protected $header = 'OAuth';
 
     /**
      * Can be one of 'access_token', 'oauth2_access_token', 'oauth_token', 'apikey' or whatever.
      *
-     * @var string | null
+     * @var string|null
      */
     protected $queryParam = null;
 
     /**
      * Should be web_server, but some services don't accept the type parameter.
      *
-     * @var string | null
+     * @var string|null
      */
     protected $type = 'web_server';
 
     /**
      * Request the service an access token.
      *
-     * @param  string $code
+     * @param string $code
      * @return array
      */
     public function accessToken($code)
@@ -57,15 +57,15 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     /**
      * Get the authorization url.
      *
-     * @param  string  $options
+     * @param array $options
      * @return string
      */
     public function authorizationUrl(array $options = [])
     {
         // Build list of query parameters
         $queryParams = [
-            'client_id'     => $this->credentials['client_id'],
-            'redirect_uri'  => $this->redirectUri,
+            'client_id' => $this->credentials['client_id'],
+            'redirect_uri' => $this->redirectUri,
             'response_type' => 'code',
         ];
 
@@ -89,7 +89,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     /**
      * Parse the access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     protected function parseAccessToken($response)
@@ -100,7 +100,7 @@ class OAuth2Service extends Service implements OAuth2ServiceInterface
     /**
      * Prepare the client for a request.
      *
-     * @return  GuzzleHttp\Client
+     * @return \GuzzleHttp\ClientInterface
      */
     protected function prepare()
     {

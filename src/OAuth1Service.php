@@ -14,13 +14,13 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * @var string
      */
-    protected $oauthCallback = '';
+    protected $oauthCallback;
 
     /**
      * Set the oauth callback URL to be used in requestToken()
      *
-     * @param  string  $callback
-     * @return ServiceInterface
+     * @param string $callback
+     * @return \OAuth\OAuth1ServiceInterface
      */
     public function setOAuthCallback($callback)
     {
@@ -53,7 +53,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         $subscriber = new Oauth1([
             'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
-            'callback' => $this->oauthCallback !== '' ? $this->oauthCallback : null,
+            'callback' => $this->oauthCallback ?: null,
         ]);
 
         $this->client->getEmitter()->attach($subscriber);
@@ -70,7 +70,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Parse the request token.
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     protected function parseRequestToken($response)
@@ -82,16 +82,16 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Request the service an access token.
      *
-     * @param  string $oauthToken
-     * @param  string $oauthVerifier
+     * @param string $oauthToken
+     * @param string $oauthVerifier
      * @return array
      */
     public function accessToken($oauthToken, $oauthVerifier)
     {
         $subscriber = new Oauth1([
-            'consumer_key'    => $this->credentials['client_id'],
+            'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
-            'token'           => $oauthToken,
+            'token' => $oauthToken,
         ]);
 
         $body = ['oauth_verifier' => $oauthVerifier];
@@ -113,7 +113,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Parse the access token.
      *
-     * @param  string $response
+     * @param string $response
      * @return array
      */
     protected function parseAccessToken($response)
@@ -125,7 +125,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Get the authorization url.
      *
-     * @param  string  $options
+     * @param array $options
      * @return string
      */
     public function authorizationUrl(array $options = [])
@@ -151,16 +151,16 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     /**
      * Prepare the client for a request.
      *
-     * @return  GuzzleHttp\Client
+     * @return \GuzzleHttp\ClientInterface
      */
     protected function prepare()
     {
         // Create an OAuth1 Subscriber for Guzzle.
         $subscriber = new Oauth1([
-            'consumer_key'    => $this->credentials['client_id'],
+            'consumer_key'=> $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
-            'token'           => $this->token['oauth_token'],
-            'token_secret'    => $this->token['oauth_token_secret'],
+            'token' => $this->token['oauth_token'],
+            'token_secret' => $this->token['oauth_token_secret'],
         ]);
 
         // Assign it and return the client itself.

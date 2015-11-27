@@ -34,7 +34,7 @@ class Linkedin extends OAuth2Service
     /**
      * Parsing access token response
      *
-     * @param  string $response
+     * @param string $response
      * @return string
      */
     public function parseAccessToken($response)

@@ -6,14 +6,14 @@ use Illuminate\Container\Container;
 class Manager
 {
     /**
-     * @var  Illuminate\Container\Container
+     * @var \Illuminate\Container\Container
      */
     protected $app;
 
     /**
      * Public constructor with DI
      *
-     * @param  Container $app
+     * @param Container $app
      */
     public function __construct(Container $app)
     {
@@ -23,16 +23,16 @@ class Manager
     /**
      * Build and return a ServiceInterface object.
      *
-     * @param  string $service
-     * @param  string $redirectUri
-     * @param  array $scopes
-     * @return OAuth\ServiceInterface
+     * @param string $service
+     * @param string $redirectUri
+     * @param array $scopes
+     * @return \OAuth\ServiceInterface
      */
     public function consumer($service, $redirectUri = null, $scopes = null)
     {
         // use scope from config if not provided
         if (is_null($scopes)) {
-            $scopes = $this->app['config']->get('php-oauth::oauth.consumers.'. $service .'.scopes', []);
+            $scopes = $this->app['config']->get('php-oauth::oauth.consumers.'.$service.'.scopes', []);
         }
 
         // Default redirect URI.

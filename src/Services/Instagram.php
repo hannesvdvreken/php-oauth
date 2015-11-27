@@ -21,12 +21,12 @@ class Instagram extends OAuth2Service
     protected $base = 'https://api.instagram.com/v1/';
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $header = null;
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $queryParam = 'access_token';
 }
