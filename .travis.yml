@@ -6,7 +6,7 @@ matrix:
     - php: 5.5
       env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
     - php: 5.6
-      env: COLLECT_COVERAGE=true
+      env: COLLECT_COVERAGE="--coverage-clover build/logs/coverage.xml"
     - php: 7.0
     - php: hhvm
 
@@ -15,7 +15,7 @@ before_script:
   - travis_retry composer install --prefer-source --no-interaction $COMPOSER_FLAGS
 
 script:
-  - phpunit --coverage-clover build/logs/coverage.xml
+  - phpunit $COLLECT_COVERAGE
 
 after_script:
-  - if [[ "$COLLECT_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/coverage.xml; fi
+  - if [[ $COLLECT_COVERAGE ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/coverage.xml; fi
