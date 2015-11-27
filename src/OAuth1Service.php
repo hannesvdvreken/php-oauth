@@ -12,33 +12,6 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
     protected $endpointRequestToken = '';
 
     /**
-     * @var string
-     */
-    protected $oauthCallback;
-
-    /**
-     * Set the oauth callback URL to be used in requestToken()
-     *
-     * @param string $callback
-     * @return \OAuth\OAuth1ServiceInterface
-     */
-    public function setOAuthCallback($callback)
-    {
-        $this->oauthCallback = $callback;
-        return $this;
-    }
-
-    /**
-     * Get the oauth callback URL to be used in requestToken()
-     *
-     * @return string
-     */
-    public function getOAuthCallback()
-    {
-        return $this->oauthCallback;
-    }
-
-    /**
      * Request the service a request token.
      *
      * @return array
@@ -53,7 +26,7 @@ class OAuth1Service extends Service implements OAuth1ServiceInterface
         $subscriber = new Oauth1([
             'consumer_key' => $this->credentials['client_id'],
             'consumer_secret' => $this->credentials['client_secret'],
-            'callback' => $this->oauthCallback ?: null,
+            'callback' => $this->redirectUri,
         ]);
 
         $this->client->getEmitter()->attach($subscriber);
